@@ -15,7 +15,7 @@ export default function Home({ user }: any) {
   return (
     <div className='w-screen h-screen flex flex-col items-center justify-center bg-zinc-700'>
       <Link href='/user/register'>Cadastrar</Link>
-      {user.map((e: any) => {
+      {user.map((e: UserProps) => {
         return (
           <Link href='/user' key={e.id}>
             <div className='w-full flex flex-row items-center justify-center gap-x-4'>
