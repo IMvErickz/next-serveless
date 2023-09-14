@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState, useMemo, use } from "react"
 import Link from 'next/link'
+import { useRouter } from "next/router"
 
 interface UserProps {
     id: string
@@ -10,13 +11,12 @@ interface UserProps {
 export default function User() {
 
     const [user, getUser] = useState<UserProps[]>([])
-    const [id, setId] = useState<string | null>(null)
 
-    //const thisUser = useMemo(() => console.log(user), [user])
+    const { query } = useRouter()
 
     async function Main() {
         useEffect(() => {
-            axios.get(`/api/${id}`)
+            axios.get(`/api/user/${query.id}`)
                 .then(function (response) {
                     getUser(response.data.user)
                 })
@@ -27,22 +27,9 @@ export default function User() {
 
     Main()
 
-    useEffect(() => {
-        const userId = localStorage.getItem('id') as string
-        if (id === null) {
-            setId(userId)
-            console.log('ID: ', id)
-        }
-        console.log('ID: ', id)
-    }, [])
-
-
-
-
-
     return (
         <div className='w-screen h-screen flex flex-col items-center justify-center bg-zinc-700'>
-            <Link href='/user/update'>Editar dados</Link>
+            <Link href={`/update/${query.id}`}>Editar dados</Link>
             {user.map(e => {
                 return (
                     <ul>

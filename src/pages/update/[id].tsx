@@ -2,25 +2,21 @@ import axios from "axios"
 import { FormEvent, useEffect, useState } from "react"
 import Link from 'next/link'
 import { redirect } from "next/navigation"
-
+import { useRouter } from "next/router"
 export default function Update() {
 
     const [data, setData] = useState('')
     const [id, setId] = useState('')
 
-    useEffect(() => {
-        // Perform localStorage action
-        let userId = localStorage.getItem('id') as string
-        setId(userId)
-    }, [])
-
+    const { query } = useRouter()
+    console.log(query.id)
 
     console.log(data)
 
     async function update(event: FormEvent) {
         event.preventDefault()
 
-        await axios.put(`/api/update/${id}`, {
+        await axios.put(`/api/update/${query.id}`, {
             Name: data
         })
 

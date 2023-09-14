@@ -17,10 +17,10 @@ export default function Home({ user }: any) {
       <Link href='/user/register'>Cadastrar</Link>
       {user.map((e: UserProps) => {
         return (
-          <Link href='/user' key={e.id}>
+          <Link href={`/user/${e.id}`} key={e.id}>
             <div className='w-full flex flex-row items-center justify-center gap-x-4'>
               <span>{e.id}</span>
-              <button onClick={() => localStorage.setItem('id', e.id)}>{e.Name}</button>
+              <button>{e.Name}</button>
             </div>
           </Link>
         )
